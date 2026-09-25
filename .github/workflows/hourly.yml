@@ -10,5 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Run PoolYar Bot
-        run: echo "PoolYar bot is ready"
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+
+      - name: Run PoolYar Price Bot
+        env:
+          BALE_BOT_TOKEN: ${{ secrets.BALE_BOT_TOKEN }}
+          BALE_CHAT_ID: ${{ secrets.BALE_CHAT_ID }}
+        run: php price_bot.php
